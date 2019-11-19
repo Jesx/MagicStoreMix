@@ -20,7 +20,9 @@ class HomeViewController: UIViewController {
                 print(self.didInput)
             }
             if self.didInput == correctAnswer {
-//                userPersist.user.getMoney() += 100
+
+                userPersist.user.addMoney()
+
                 moneyLabel.text = "$ \(userPersist.user.totalMoney)"
             }
         }

@@ -11,7 +11,10 @@ import UIKit
 class MyOwnViewController: UIViewController {
     
     let magicBookList = MagicBookList()
-
+    let userPersist = UserPersist.shared
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,7 +26,7 @@ class MyOwnViewController: UIViewController {
         
         let backButton = UIBarButtonItem()
         backButton.title = "返回"
-    self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
         
         self.navigationController?.view.tintColor = UIColor.white
     }
@@ -32,10 +35,47 @@ class MyOwnViewController: UIViewController {
 
 extension MyOwnViewController: UICollectionViewDelegate {
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        <#code#>
-//    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if indexPath.section == 0 {
+            if userPersist.user.getPurchased(book: magicBookList.level1[indexPath.item]) {
+                
+                if let sellVC = storyboard?.instantiateViewController(withIdentifier: "sellVC") as? SellViewController {
+                    sellVC.image = UIImage(named: magicBookList.level1[indexPath.item].name)
+                    sellVC.price = magicBookList.level1[indexPath.item].price
+                    sellVC.magicBook = magicBookList.level1[indexPath.item]
+                    sellVC.vc = self
+                    present(sellVC, animated: false)
+                }
+            }
+        }
+        else if indexPath.section == 1 {
+            if userPersist.user.getPurchased(book: magicBookList.level2[indexPath.item]) {
+                
+                if let sellVC = storyboard?.instantiateViewController(withIdentifier: "sellVC") as? SellViewController {
+                    sellVC.image = UIImage(named: magicBookList.level2[indexPath.item].name)
+                    sellVC.price = magicBookList.level2[indexPath.item].price
+                    sellVC.magicBook = magicBookList.level2[indexPath.item]
+                    sellVC.vc = self
+                    present(sellVC, animated: false)
+                }
+            }
+        }
+        else if indexPath.section == 2 {
+            if userPersist.user.getPurchased(book: magicBookList.level3[indexPath.item]) {
+                
+                if let sellVC = storyboard?.instantiateViewController(withIdentifier: "sellVC") as? SellViewController {
+                    sellVC.image = UIImage(named: magicBookList.level3[indexPath.item].name)
+                    sellVC.price = magicBookList.level3[indexPath.item].price
+                    sellVC.magicBook = magicBookList.level3[indexPath.item]
+                    sellVC.vc = self
+                    present(sellVC, animated: false)
+                }
+            }
+        }
+    }
 }
+
 
 extension MyOwnViewController: UICollectionViewDataSource {
     //

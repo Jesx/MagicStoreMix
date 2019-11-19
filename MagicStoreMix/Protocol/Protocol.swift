@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol passImageAndPriceDelegate {
+protocol passImageAndPriceDelegate: AnyObject {
     func passImageAndPrice(image: String, price: Int)
 }
